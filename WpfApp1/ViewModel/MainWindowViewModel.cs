@@ -3,30 +3,40 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace WpfApp1.ViewModel
 {
-    class MainWindowViewModel: INotifyPropertyChanged
+    internal class MainWindowViewModel : Base.ViewModel
     {
-        #region INotifyPropertyChanged Members  
-        public event PropertyChangedEventHandler PropertyChanged;
+        #region Считывание текста для шифрования
 
-        protected virtual void RaisePropertyChangedEvent([CallerMemberName] string propertyName = null)
+        private string _encryptedString;
+
+        /// <summary>
+        /// Текст для шифрования
+        /// </summary>
+        public string EncryptedString
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            get => _encryptedString;
+            set => Set(ref _encryptedString, value);
         }
+
         #endregion
 
-        #region Сircular Сhanges
-        protected virtual bool Set<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        #region Считывание текста для дешифрования
+
+        private string _decryptedString;
+
+        /// <summary>
+        /// Текст для дешифрования
+        /// </summary>
+        public string DecryptedString
         {
-            if (Equals(field, value)) return false;
-            field = value;
-            RaisePropertyChangedEvent(propertyName);
-            return true;
+            get => _decryptedString;
+            set => Set(ref _decryptedString, value);
         }
+
         #endregion
+
     }
 }

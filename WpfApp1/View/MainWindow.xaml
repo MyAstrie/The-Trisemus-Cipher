@@ -19,13 +19,13 @@
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0">
-            <TextBox Text="{Binding SomeText, UpdateSourceTrigger=PropertyChanged}" x:Name="cleanDataTxtBox" HorizontalAlignment="Center" Margin="0,20,0,0" VerticalAlignment="Top" Height="150" Width="300"/>
+            <TextBox Text="{Binding EncryptedString, UpdateSourceTrigger=PropertyChanged}" x:Name="cleanDataTxtBox" HorizontalAlignment="Center" Margin="0,20,0,0" VerticalAlignment="Top" Height="150" Width="300"/>
             <Button x:Name="encryptionBtn" Content="Шифрование" HorizontalAlignment="Center" Height="30" Width="170"/>
             <TextBlock x:Name="encryptionText" HorizontalAlignment="Center" Margin="0,0,0,20" TextWrapping="Wrap" Text=" " VerticalAlignment="Bottom" Height="150" Width="300"/>
         </Grid>
 
         <Grid Grid.Column="1">
-            <TextBox x:Name="encryptionDataTxtBox" HorizontalAlignment="Center" Margin="0,20,0,0" VerticalAlignment="Top" Height="150" Width="300"/>
+            <TextBox Text="{Binding DecryptedString, UpdateSourceTrigger=PropertyChanged}" x:Name="encryptionDataTxtBox" HorizontalAlignment="Center" Margin="0,20,0,0" VerticalAlignment="Top" Height="150" Width="300"/>
             <Button x:Name="decryptionBtn" Content="Дешифрование" HorizontalAlignment="Center" Height="30" Width="170"/>
             <TextBlock x:Name="decryptionText" HorizontalAlignment="Center" Margin="0,0,0,20" TextWrapping="Wrap" Text=" " VerticalAlignment="Bottom" Height="150" Width="300"/>
         </Grid>

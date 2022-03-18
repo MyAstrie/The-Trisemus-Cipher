@@ -1,0 +1,33 @@
+﻿<Window x:Class="WpfApp1.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        xmlns:viewModel ="clr-namespace:WpfApp1.ViewModel"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    
+    <Window.DataContext>
+        <viewModel:MainWindowViewModel />
+    </Window.DataContext>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <TextBox Text="{Binding SomeText, UpdateSourceTrigger=PropertyChanged}" x:Name="cleanDataTxtBox" HorizontalAlignment="Center" Margin="0,20,0,0" VerticalAlignment="Top" Height="150" Width="300"/>
+            <Button x:Name="encryptionBtn" Content="Шифрование" HorizontalAlignment="Center" Height="30" Width="170"/>
+            <TextBlock x:Name="encryptionText" HorizontalAlignment="Center" Margin="0,0,0,20" TextWrapping="Wrap" Text=" " VerticalAlignment="Bottom" Height="150" Width="300"/>
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <TextBox x:Name="encryptionDataTxtBox" HorizontalAlignment="Center" Margin="0,20,0,0" VerticalAlignment="Top" Height="150" Width="300"/>
+            <Button x:Name="decryptionBtn" Content="Дешифрование" HorizontalAlignment="Center" Height="30" Width="170"/>
+            <TextBlock x:Name="decryptionText" HorizontalAlignment="Center" Margin="0,0,0,20" TextWrapping="Wrap" Text=" " VerticalAlignment="Bottom" Height="150" Width="300"/>
+        </Grid>
+    </Grid> 
+</Window>

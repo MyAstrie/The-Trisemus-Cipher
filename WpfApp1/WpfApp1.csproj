@@ -79,8 +79,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Model\TrisemusCoder.cs" />
-    <Compile Include="ViewModel\DelegateCommand.cs" />
+    <Compile Include="infrastructure\DelegateCommand.cs" />
+    <Compile Include="Model\TextConverter.cs" />
+    <Compile Include="infrastructure\Base\Command.cs" />
     <Compile Include="ViewModel\Base\ViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="View\MainWindow.xaml.cs">

@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Windows.Input;
+using WpfApp1.infrastructure;
 
 namespace WpfApp1.ViewModel
 {
     internal class MainWindowViewModel : Base.ViewModel
     {
-        #region Считывание текста для шифрования
+        #region EncryptedString
 
         private string _encryptedString;
 
@@ -23,7 +20,22 @@ namespace WpfApp1.ViewModel
 
         #endregion
 
-        #region Считывание текста для дешифрования
+        #region EncryptedKeyString
+
+        private string _encryptedKeyString;
+
+        /// <summary>
+        /// Ключ для шифрования
+        /// </summary>
+        public string EncryptedKeyString
+        {
+            get => _encryptedKeyString;
+            set => Set(ref _encryptedKeyString, value);
+        } 
+
+        #endregion
+
+        #region DecryptedString
 
         private string _decryptedString;
 
@@ -38,5 +50,50 @@ namespace WpfApp1.ViewModel
 
         #endregion
 
-    }
+        #region DecryptedKeyString
+
+        private string _decryptedKeyString;
+
+        /// <summary>
+        /// Ключ для дешифрования
+        /// </summary>
+        public string DecryptedKeyString
+        {
+            get => _decryptedKeyString;
+            set => Set(ref _decryptedKeyString, value);
+        }
+
+        #endregion
+
+        #region EncryptedCommand
+
+        public ICommand EncryptedCommand { get; private set; }
+
+        private void OnEncryptedCommandExecuted(object p)
+        {
+            
+        }
+
+        private bool CanEncryptedCommandExecute(object p) => true;
+
+        #endregion
+
+        #region DecryptedCommand
+        public ICommand DecryptedCommand { get; private set; }
+
+        private void OnDecryptedCommandExecuted(object p)
+        {
+
+        }
+
+        private bool CanDecryptedCommandExecute(object p) => true; 
+        
+        #endregion
+
+        public MainWindowViewModel()
+        {
+            EncryptedCommand = new DelegateCommand(OnEncryptedCommandExecuted, CanEncryptedCommandExecute);
+            DecryptedCommand = new DelegateCommand(OnDecryptedCommandExecuted, CanDecryptedCommandExecute);
+        }
+    }   
 }

@@ -4,18 +4,21 @@ using System.Runtime.CompilerServices;
 
 namespace WpfApp1.ViewModel.Base
 {
-    class ViewModel : INotifyPropertyChanged, IDisposable
+    public abstract class ViewModel : INotifyPropertyChanged, IDisposable
     {
         #region INotifyPropertyChanged Members
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void RaisePropertyChangedEvent([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
         #endregion
 
-        #region Set Сircular Сhanges
+        #region Checks if a property already matches a desired value
+
         protected virtual bool Set<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
         {
             if (Equals(field, value)) return false;
@@ -23,9 +26,11 @@ namespace WpfApp1.ViewModel.Base
             RaisePropertyChangedEvent(propertyName);
             return true;
         }
+
         #endregion
 
         #region Dispose Members
+
         // ~ViewModel()
         //{
         //    Dispose(false);
@@ -44,6 +49,7 @@ namespace WpfApp1.ViewModel.Base
             _disposed = true;
             // Data release
         }
+
         #endregion
     }
 }

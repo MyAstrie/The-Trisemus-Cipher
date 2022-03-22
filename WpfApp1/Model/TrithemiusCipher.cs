@@ -28,7 +28,7 @@ namespace WpfApp1.Model
                 {
                     if (textMessage[i] != ' ')
                     {
-                        encryptedMessage[i] = _russianAlphabet[(Array.IndexOf(_russianAlphabet, textMessage.ToUpper()[i]) + textKey) % 31];
+                        encryptedMessage[i] = _russianAlphabet[(Array.IndexOf(_russianAlphabet, textMessage.ToUpper()[i]) + textKey) % 32];
                         textKey++;
                     }
                     else
@@ -62,7 +62,7 @@ namespace WpfApp1.Model
                 {
                     if (textMessage[i] != ' ')
                     {
-                        encryptedMessage[i] = _russianAlphabet[(Array.IndexOf(_russianAlphabet, textMessage.ToUpper()[i]) - textKey + 31) % 31];
+                        encryptedMessage[i] = _russianAlphabet[(Array.IndexOf(_russianAlphabet, textMessage.ToUpper()[i]) - textKey + 32) % 32];
                         textKey++;
                     }
                     else

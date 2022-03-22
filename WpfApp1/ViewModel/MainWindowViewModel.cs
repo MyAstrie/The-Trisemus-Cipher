@@ -1,16 +1,49 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
+using System.Windows;
 using WpfApp1.infrastructure;
+using WpfApp1.Model;
 
 namespace WpfApp1.ViewModel
 {
     internal class MainWindowViewModel : Base.ViewModel
     {
+        #region EncryptionString
+
+        private string _encryptionString;
+
+        /// <summary>
+        /// String for encryption
+        /// </summary>
+        public string EncryptionString
+        {
+            get => _encryptionString;
+            set => Set(ref _encryptionString, value);
+        }
+
+        #endregion
+
+        #region EncryptionKey
+
+        private int _encryptionKey;
+
+        /// <summary>
+        /// Encryption key
+        /// </summary>
+        public int EncryptionKey
+        {
+            get => _encryptionKey;
+            set => Set(ref _encryptionKey, value);
+        }
+
+        #endregion
+
         #region EncryptedString
 
         private string _encryptedString;
 
         /// <summary>
-        /// Текст для шифрования
+        /// String for encryption
         /// </summary>
         public string EncryptedString
         {
@@ -20,27 +53,42 @@ namespace WpfApp1.ViewModel
 
         #endregion
 
-        #region EncryptedKeyString
+        #region DecryptionString
 
-        private string _encryptedKeyString;
+        private string _decryptionString;
 
         /// <summary>
-        /// Ключ для шифрования
+        /// String for decryption
         /// </summary>
-        public string EncryptedKeyString
+        public string DecryptionString
         {
-            get => _encryptedKeyString;
-            set => Set(ref _encryptedKeyString, value);
-        } 
+            get => _decryptionString;
+            set => Set(ref _decryptionString, value);
+        }
 
         #endregion
 
-        #region DecryptedString
+        #region DecryptionKey
+
+        private int _decryptionKey;
+
+        /// <summary>
+        /// Decryption key
+        /// </summary>
+        public int DecryptionKey
+        {
+            get => _decryptionKey;
+            set => Set(ref _decryptionKey, value);
+        }
+
+        #endregion
+
+        #region DecryptedSting
 
         private string _decryptedString;
 
         /// <summary>
-        /// Текст для дешифрования
+        /// String for encryption
         /// </summary>
         public string DecryptedString
         {
@@ -50,50 +98,55 @@ namespace WpfApp1.ViewModel
 
         #endregion
 
-        #region DecryptedKeyString
+        #region EncryptionCommand
 
-        private string _decryptedKeyString;
+        public ICommand EncryptionCommand { get; private set; }
 
-        /// <summary>
-        /// Ключ для дешифрования
-        /// </summary>
-        public string DecryptedKeyString
+        private void OnEncryptionCommandExecuted(object p)
         {
-            get => _decryptedKeyString;
-            set => Set(ref _decryptedKeyString, value);
+            try
+            {
+                EncryptedString = TrithemiusCipher.Encrypt(EncryptionString, EncryptionKey);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+            }
         }
+
+        private bool CanEncryptionCommandExecute(object p) => true;
 
         #endregion
 
-        #region EncryptedCommand
+        #region DecryptionCommand
 
-        public ICommand EncryptedCommand { get; private set; }
+        public ICommand DecryptionCommand { get; private set; }
 
-        private void OnEncryptedCommandExecuted(object p)
+        private void OnDecryptionCommandExecuted(object p)
         {
-            
+            try
+            {
+                DecryptedString = TrithemiusCipher.Decrypt(DecryptionString, DecryptionKey);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+            }
         }
 
-        private bool CanEncryptedCommandExecute(object p) => true;
-
-        #endregion
-
-        #region DecryptedCommand
-        public ICommand DecryptedCommand { get; private set; }
-
-        private void OnDecryptedCommandExecuted(object p)
-        {
-
-        }
-
-        private bool CanDecryptedCommandExecute(object p) => true; 
+        private bool CanDecryptionCommandExecute(object p) => true; 
         
         #endregion
 
+        private TrithemiusCipher _trithemiusCipher;
+
+        private TrithemiusCipher TrithemiusCipher => _trithemiusCipher;
+
         public MainWindowViewModel()
         {
-            EncryptedCommand = new DelegateCommand(OnEncryptedCommandExecuted, CanEncryptedCommandExecute);
-            DecryptedCommand = new DelegateCommand(OnDecryptedCommandExecuted, CanDecryptedCommandExecute);
+            _trithemiusCipher = new TrithemiusCipher();
+            EncryptionCommand = new DelegateCommand(OnEncryptionCommandExecuted, CanEncryptionCommandExecute);
+            DecryptionCommand = new DelegateCommand(OnDecryptionCommandExecuted, CanDecryptionCommandExecute);
         }
-    }   
+    }
 }

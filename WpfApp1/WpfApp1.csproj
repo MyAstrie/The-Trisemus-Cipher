@@ -80,7 +80,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="infrastructure\DelegateCommand.cs" />
-    <Compile Include="Model\TextConverter.cs" />
+    <Compile Include="Model\TrithemiusCipher.cs" />
     <Compile Include="infrastructure\Base\Command.cs" />
     <Compile Include="ViewModel\Base\ViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />

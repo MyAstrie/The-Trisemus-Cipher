@@ -6,36 +6,32 @@ namespace WpfApp1.Model
 {
     internal class TrithemiusCipher
     {
-        // Russian Alphabet without "Ё"
-        private Char[] _russianAlphabet = Enumerable.Range('А', 'Я' - 'А' + 1) 
-                                                    .Select(Convert.ToChar)    
-                                                    .Concat("Ё .,")            
-                                                    .ToArray();
+        char[] _alphabet = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ ,.?!'<>/;[]=-".ToCharArray();
 
-        public string Encrypt(string textMessage, int textKey)
+        public string Encrypt(string textMessage, string textKey, int shift)
         {
             try
             {
-                if (String.IsNullOrWhiteSpace(textMessage) || textMessage.Contains(" "))
-                {
-                    MessageBox.Show("Шифр не может быть пустым или содержать пробелы");
+                if (string.IsNullOrEmpty(textMessage) || string.IsNullOrEmpty(textKey))
                     return null;
-                }
 
-                char[] encryptedMessage = new char[textMessage.Length];
+                var keyword = textKey.ToUpper().Distinct().ToArray();
 
-                for (int i = 0; i < textMessage.Length; i++)
-                {
-                    if (textMessage[i] != ' ')
-                    {
-                        encryptedMessage[i] = _russianAlphabet[(Array.IndexOf(_russianAlphabet, textMessage.ToUpper()[i]) + textKey) % 32];
-                        textKey++;
-                    }
-                    else
-                    {
-                        encryptedMessage[i] = textMessage[i];
-                    }
-                }
+                var cipherAlphabet = new char[_alphabet.Length];
+
+                keyword.CopyTo(cipherAlphabet, 0);
+
+                _alphabet.Except(keyword).ToArray().CopyTo(cipherAlphabet, keyword.Length);
+
+                var text = textMessage.ToUpper().ToArray();
+
+                // преобразует список символов исходного текста в список индексов этих символов в алфавите
+                // преобразует список индексов символов исходного текста в символы шифротекста согласно заданному смещению
+                var encryptedMessage = text.Select(c => Array.IndexOf(cipherAlphabet, c))      
+                                       .Select(index => index + shift < cipherAlphabet.Length 
+                                           ? cipherAlphabet[index + shift] 
+                                           : cipherAlphabet[index - _alphabet.Length])
+                                       .ToArray();
 
                 return new string(encryptedMessage);
             }
@@ -46,32 +42,30 @@ namespace WpfApp1.Model
             }
         }
 
-        public string Decrypt(string textMessage, int textKey)
+        public string Decrypt(string textMessage, string textKey, int shift)
         {
             try
             {
-                if (String.IsNullOrWhiteSpace(textMessage) || textMessage.Contains(" "))
-                {
-                    MessageBox.Show("Шифр не может быть пустым или содержать пробелы");
+                if (string.IsNullOrEmpty(textMessage) || string.IsNullOrEmpty(textKey))
                     return null;
-                }
 
-                char[] encryptedMessage = new char[textMessage.Length];
+                var keyword = textKey.ToUpper().Distinct().ToArray();
 
-                for (int i = 0; i < textMessage.Length; i++)
-                {
-                    if (textMessage[i] != ' ')
-                    {
-                        encryptedMessage[i] = _russianAlphabet[(Array.IndexOf(_russianAlphabet, textMessage.ToUpper()[i]) - textKey + 32) % 32];
-                        textKey++;
-                    }
-                    else
-                    {
-                        encryptedMessage[i] = textMessage[i];
-                    }
-                }
+                var cipherAlphabet = new char[_alphabet.Length];
 
-                return new string(encryptedMessage);
+                keyword.CopyTo(cipherAlphabet, 0);
+
+                _alphabet.Except(keyword).ToArray().CopyTo(cipherAlphabet, keyword.Length);
+
+                var text = textMessage.ToUpper().ToArray();
+
+                var decriptedMessage = text.Select(c => Array.IndexOf(cipherAlphabet, c))
+                    .Select(index => index - shift >= 0 
+                        ? cipherAlphabet[index - shift] 
+                        : cipherAlphabet[index + _alphabet.Length])
+                    .ToArray();
+
+                return new string(decriptedMessage);
             }
             catch
             {

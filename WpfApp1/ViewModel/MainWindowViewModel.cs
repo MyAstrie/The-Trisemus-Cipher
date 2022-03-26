@@ -25,12 +25,12 @@ namespace WpfApp1.ViewModel
 
         #region EncryptionKey
 
-        private int _encryptionKey;
+        private string _encryptionKey;
 
         /// <summary>
         /// Encryption key
         /// </summary>
-        public int EncryptionKey
+        public string EncryptionKey
         {
             get => _encryptionKey;
             set => Set(ref _encryptionKey, value);
@@ -70,12 +70,12 @@ namespace WpfApp1.ViewModel
 
         #region DecryptionKey
 
-        private int _decryptionKey;
+        private string _decryptionKey;
 
         /// <summary>
         /// Decryption key
         /// </summary>
-        public int DecryptionKey
+        public string DecryptionKey
         {
             get => _decryptionKey;
             set => Set(ref _decryptionKey, value);
@@ -98,6 +98,36 @@ namespace WpfApp1.ViewModel
 
         #endregion
 
+        #region EncryptionShift
+
+        private int _encryptionShift;
+
+        /// <summary>
+        /// Shift for encryption
+        /// </summary>
+        public int EncryptionShift
+        {
+            get => _encryptionShift;
+            set => Set(ref _encryptionShift, value);
+        }
+
+        #endregion
+
+        #region DecryptionShift
+
+        private int _decryptionShift;
+
+        /// <summary>
+        /// Shift for decryption
+        /// </summary>
+        public int DecryptionShift
+        {
+            get => _decryptionShift;
+            set => Set(ref _decryptionShift, value);
+        }
+
+        #endregion
+
         #region EncryptionCommand
 
         public ICommand EncryptionCommand { get; private set; }
@@ -106,7 +136,7 @@ namespace WpfApp1.ViewModel
         {
             try
             {
-                EncryptedString = TrithemiusCipher.Encrypt(EncryptionString, EncryptionKey);
+                EncryptedString = TrithemiusCipher.Encrypt(EncryptionString, EncryptionKey, EncryptionShift);
             }
             catch (Exception e)
             {
@@ -126,7 +156,7 @@ namespace WpfApp1.ViewModel
         {
             try
             {
-                DecryptedString = TrithemiusCipher.Decrypt(DecryptionString, DecryptionKey);
+                DecryptedString = TrithemiusCipher.Decrypt(DecryptionString, DecryptionKey, DecryptionShift);
             }
             catch (Exception e)
             {
@@ -138,13 +168,11 @@ namespace WpfApp1.ViewModel
         
         #endregion
 
-        private TrithemiusCipher _trithemiusCipher;
-
-        private TrithemiusCipher TrithemiusCipher => _trithemiusCipher;
+        private TrithemiusCipher TrithemiusCipher { get; }
 
         public MainWindowViewModel()
         {
-            _trithemiusCipher = new TrithemiusCipher();
+            TrithemiusCipher = new TrithemiusCipher();
             EncryptionCommand = new DelegateCommand(OnEncryptionCommandExecuted, CanEncryptionCommandExecute);
             DecryptionCommand = new DelegateCommand(OnDecryptionCommandExecuted, CanDecryptionCommandExecute);
         }

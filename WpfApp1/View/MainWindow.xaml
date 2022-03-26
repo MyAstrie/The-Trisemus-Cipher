@@ -19,19 +19,25 @@
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0">
-            <TextBox Text="{Binding EncryptionString, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Margin="0,20,0,0" VerticalAlignment="Top" Height="70" Width="300"/>
+            <TextBox Text="{Binding EncryptionString, UpdateSourceTrigger=PropertyChanged}" Margin="50,33,50,0" VerticalAlignment="Top" Height="70"/>
             <Label Content="Введите ключ:" HorizontalAlignment="Left" Margin="50,105,0,0" VerticalAlignment="Top"/>
-            <TextBox Text="{Binding EncryptionKey, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Margin="0,132,0,0" VerticalAlignment="Top" Height="25" Width="300"/>
-            <Button Command="{Binding EncryptionCommand}" Content="Шифрование" HorizontalAlignment="Center" Height="30" Width="170"/>
-            <TextBox Text="{Binding EncryptedString}" HorizontalAlignment="Center" Margin="0,0,0,20" VerticalAlignment="Bottom" Height="150" Width="300" BorderBrush="Transparent"/>
+            <TextBox Text="{Binding EncryptionKey, UpdateSourceTrigger=PropertyChanged}" Margin="50,132,50,0" VerticalAlignment="Top" Height="25"/>
+            <Label Content="Введите смещение:" HorizontalAlignment="Left" Margin="50,157,0,0" VerticalAlignment="Top" Width="121"/>
+            <TextBox Text="{Binding EncryptionShift, UpdateSourceTrigger=PropertyChanged}" Margin="50,183,50,0" VerticalAlignment="Top" Height="25"/>
+            <Button Command="{Binding EncryptionCommand}" Content="Шифрование" Height="30" Margin="115,219,115,0" VerticalAlignment="Top"/>
+            <TextBox Text="{Binding EncryptedString}" Margin="50,264,50,20" BorderBrush="Transparent"/>
+            <Label Content="Сообщение:" HorizontalAlignment="Left" Margin="50,7,0,0" VerticalAlignment="Top"/>
         </Grid>
 
         <Grid Grid.Column="1">
-            <TextBox Text="{Binding DecryptionString, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Margin="0,20,0,0" VerticalAlignment="Top" Height="70" Width="300"/>
+            <TextBox Text="{Binding DecryptionString, UpdateSourceTrigger=PropertyChanged}" Margin="50,33,50,0" VerticalAlignment="Top" Height="70"/>
             <Label Content="Введите ключ:" HorizontalAlignment="Left" Margin="50,105,0,0" VerticalAlignment="Top"/>
-            <TextBox Text="{Binding DecryptionKey, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Margin="0,132,0,0" VerticalAlignment="Top" Height="25" Width="300"/>
-            <Button Command="{Binding DecryptionCommand}" Content="Дешифрование" HorizontalAlignment="Center" Height="30" Width="170"/>
-            <TextBox Text ="{Binding DecryptedString}" HorizontalAlignment="Center" Margin="0,0,0,20" TextWrapping="Wrap" VerticalAlignment="Bottom" Height="150" Width="300" BorderBrush="Transparent"/>
+            <TextBox Text="{Binding DecryptionKey, UpdateSourceTrigger=PropertyChanged}" Margin="50,132,50,0" VerticalAlignment="Top" Height="25"/>
+            <TextBox Text="{Binding DecryptionShift, UpdateSourceTrigger=PropertyChanged}" Margin="50,183,50,0" VerticalAlignment="Top" Height="25"/>
+            <Label Content="Введите смещение:" HorizontalAlignment="Left" Margin="50,157,0,0" VerticalAlignment="Top" Width="121"/>
+            <Button Command="{Binding DecryptionCommand}" Content="Дешифрование" Height="30" Margin="115,219,115,0" VerticalAlignment="Top"/>
+            <TextBox Text ="{Binding DecryptedString}" Margin="50,264,50,20" TextWrapping="Wrap" BorderBrush="Transparent"/>
+            <Label Content="Сообщение:" HorizontalAlignment="Left" Margin="50,7,0,0" VerticalAlignment="Top"/>
         </Grid>
     </Grid>
 </Window>
